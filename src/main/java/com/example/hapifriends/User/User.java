@@ -1,4 +1,4 @@
-package com.example.hapifriends;
+package com.example.hapifriends.User;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

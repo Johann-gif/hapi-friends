@@ -1,4 +1,4 @@
-package com.example.hapifriends;
+package com.example.hapifriends.User;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
