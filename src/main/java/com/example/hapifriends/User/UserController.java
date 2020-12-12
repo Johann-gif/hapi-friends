@@ -1,7 +1,5 @@
 package com.example.hapifriends.User;
 
-import com.example.hapifriends.User;
-import com.example.hapifriends.UserRepository;
 import org.apache.velocity.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +16,7 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
     @GetMapping
-    public List<com.example.hapifriends.User> getUsers() {
+    public List<User> getUsers() {
         return userRepository.findAll();
     }
 
