@@ -19,6 +19,7 @@ public class User {
     private String firstname;
     private String email;
     private String mob_number;
+
     @ManyToMany()
     @JoinTable(
             name = "friends",
@@ -26,6 +27,5 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "friend_id")
     )
     @JsonIgnoreProperties("friends")
-    /*private Set<User> friends = new HashSet<User>();*/
     private List<User> friends;
 }

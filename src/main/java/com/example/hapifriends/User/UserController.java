@@ -44,8 +44,13 @@ public class UserController {
     public ResponseEntity<Void> deleteThisUser (@PathVariable int id) throws ResourceNotFoundException {
         User myUser = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found :: " + id));
-        /*User monFriend = friendRepository.findById(id);
-        friendRepository.delete(monFriend);*/
+
+        List<User> friends = myUser.getFriends();
+        for (User friend : friends) {
+            friend.getFriends().remove(myUser);
+        }
+        myUser.getFriends().removeAll(myUser.getFriends());
+
         userRepository.delete(myUser);
         return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
