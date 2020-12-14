@@ -6,3 +6,9 @@ VALUES (2,'Giudice', 'Gianni', 'gianni.giudice@lacatholille.fr', null);
 
 INSERT INTO user(id,surname,firstname,email,mob_number)
 VALUES (3,'Guidez', 'Sébastien', 'sebastien.guidez@lacatholille.fr', null);
+
+/*INSERT INTO friends(user_id, friend_id)
+VALUES (1,2);*/
+
+INSERT INTO friends(user_id, friend_id)
+VALUES (3,1);
