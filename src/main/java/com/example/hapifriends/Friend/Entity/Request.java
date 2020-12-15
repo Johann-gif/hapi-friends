@@ -15,7 +15,7 @@ public class Request {
     @Id
     private int id;
     @ManyToOne
-    private User $user1;
+    private User user1;
     @ManyToOne
-    private User $user2;
+    private User user2;
 }
