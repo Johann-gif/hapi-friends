@@ -7,75 +7,91 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @RestController
 @RequestMapping(path="/friends")
 public class FriendController {
     private UserRepository userRepository;
+    private User currentUser;
+
+    public FriendController() {
+        User other = new User();
+        other.setId(5);
+        other.setPseudo("as");
+        other.setPassword("as");
+        other.setSurname("Schultz");
+        other.setFirstname("Antoine");
+        other.setEmail("antoine.schultz@lacatholille.fr");
+        other.setMob_number("");
+        other.setFriends(new ArrayList<User>());
+
+
+        currentUser = new User();
+        currentUser.setId(4);
+        currentUser.setPseudo("as");
+        currentUser.setPassword("as");
+        currentUser.setSurname("Schultz");
+        currentUser.setFirstname("Antoine");
+        currentUser.setEmail("antoine.schultz@lacatholille.fr");
+        currentUser.setMob_number("");
+        currentUser.setFriends(new ArrayList<User>());
+        currentUser.addFriend(other);
+    }
 
     @GetMapping
     public List<User> getFriends()
     {
-        // Get user with authentication
-        User user = new User();
-        // Get user with authentication
-
-        return user.getFriends();
+        return currentUser.getFriends();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<User> getFriend(@PathVariable int user_id) throws ResourceNotFoundException {
-        // Get user with authentication
-        User currentUser = new User();
-        // Get user with authentication
-
-        User user = userRepository.findById(user_id).orElseThrow(() -> new ResourceNotFoundException("User not found :: " + user_id));
-        if (currentUser.getFriends().contains(user)) {
-            return ResponseEntity.ok().body(user);
+        User friend = userRepository.getFriendIfExists(currentUser.getId(), user_id);
+        if (friend != null) {
+            return ResponseEntity.ok().body(friend);
         }
         return ResponseEntity.notFound().build();
     }
 
-    @GetMapping("/search/{name}")
-    public @ResponseBody List<User> getUsersByName(@PathVariable String name) {
-        // Get user with authentication
-        User currentUser = new User();
-        // Get user with authentication
-
-        List<User> myUsersSurname = userRepository.findBySurnameStartsWithIgnoreCase(name);
-        List<User> myUsersFirstname = userRepository.findByFirstnameStartsWithIgnoreCase(name);
-        List<User> myUsers = Stream.concat(myUsersSurname.stream(), myUsersFirstname.stream())
-                .collect(Collectors.toList());
-        return myUsers;
+   @GetMapping("/search/{name}")
+    public @ResponseBody List<User> getFriendsByName(@PathVariable String name) {
+       List<User> result = new ArrayList<>();
+        List<User> friends = currentUser.getFriends();
+        for (User friend : friends) {
+            if (friend.getPseudo().contains(name)) {
+                result.add(friend);
+            }
+        }
+        return result;
     }
 
     @PostMapping("/add")
-    public void addFriend(@RequestBody int user_id) throws ResourceNotFoundException {
-        // Get user with authentication
-        User currentUser = new User();
-        // Get user with authentication
-
+    public ResponseEntity<User> addFriend(@RequestParam int user_id) throws ResourceNotFoundException {
         User user_to_add = userRepository.findById(user_id).orElseThrow(() -> new ResourceNotFoundException("User not found :: " + user_id));
-        currentUser.getFriends().add(user_to_add);
+
+        currentUser.addFriend(user_to_add);
+        user_to_add.addFriend(currentUser);
+
         userRepository.save(currentUser);
+        userRepository.save(user_to_add);
+
+        return ResponseEntity.ok().body(user_to_add);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteFriend(@PathVariable int user_id) throws ResourceNotFoundException {
-        // Get user with authentication
-        User currentUser = new User();
-        // Get user with authentication
-
         User user = userRepository.findById(user_id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found :: " + user_id));
 
         if (!currentUser.getFriends().remove(user)) {
             return ResponseEntity.notFound().build();
         }
+        user.getFriends().remove(currentUser);
+        userRepository.save(currentUser);
+        userRepository.save(user);
         return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
 }

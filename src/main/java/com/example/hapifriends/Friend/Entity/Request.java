@@ -11,8 +11,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class Request {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private int id;
     @ManyToOne
     private User user1;
     @ManyToOne
