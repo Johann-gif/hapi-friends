@@ -57,16 +57,16 @@ public class UserController {
     public ResponseEntity<User> changeClient (@PathVariable int id, @RequestParam(required = false) String nom, @RequestParam(required = false) String prenom, @RequestParam(required = false) String email, @RequestParam(required = false) String numero) throws ResourceNotFoundException {
         User myUser = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found :: " + id));
-        if(nom!=null) {
+        if (nom != null) {
             myUser.setSurname(nom);
         }
-        if(prenom!=null) {
+        if (prenom != null) {
             myUser.setFirstname(prenom);
         }
-        if(email!=null) {
+        if (email != null) {
             myUser.setEmail(email);
         }
-        if(numero!=null) {
+        if (numero != null) {
             myUser.setMob_number(numero);
         }
         userRepository.save(myUser);
