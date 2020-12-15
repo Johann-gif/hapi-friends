@@ -1,4 +1,4 @@
-package com.example.hapifriends;
+package com.example.hapifriends.Post;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,7 +11,9 @@ import javax.persistence.*;
 public class Post {
     @Id
     private int id;
-    private String text;
+    private String textPost;
     private Boolean publicPost;
-    private String idAuthor;
+    private int idAuthor;
+    private int reaction;
+
 }

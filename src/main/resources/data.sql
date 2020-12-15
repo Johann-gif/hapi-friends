@@ -9,3 +9,6 @@ VALUES (3,'Guidez', 'Sébastien', 'sebastien.guidez@lacatholille.fr', null);
 
 INSERT INTO friends(user_id, friend_id) VALUES (1, 3);
 INSERT INTO friends(user_id, friend_id) VALUES (3, 1);
+
+INSERT INTO post(id,textPost,publicPost,idAuthor,reaction)
+VALUES (1,'ceci est le premier post', 1, 2, 4);

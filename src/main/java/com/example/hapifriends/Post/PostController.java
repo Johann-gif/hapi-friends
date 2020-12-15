@@ -1,7 +1,5 @@
-package com.example.hapifriends.Posts;
+package com.example.hapifriends.Post;
 
-import com.example.hapifriends.Posts;
-import com.example.hapifriends.PostsRepository;
 import org.apache.velocity.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,18 +11,18 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/posts")
-public class PostsController {
+@RequestMapping(path = "/post")
+public class PostController {
     @Autowired
-    private PostsRepository postsRepository;
+    private PostRepository postRepository;
     @GetMapping
-    public List<com.example.hapifriends.Post> getPost() {
-        return postsRepository.findAll();
+    public List<Post> getPost() {
+        return postRepository.findAll();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Post> GetThisPost(@PathVariable int id) throws ResourceNotFoundException {
-        Post i = postsRepository.findById(id)
+        Post i = postRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Post not found :: " + id));
         return ResponseEntity.ok().body(i);
     }
