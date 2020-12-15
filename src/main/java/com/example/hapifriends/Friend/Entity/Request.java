@@ -4,18 +4,17 @@ import com.example.hapifriends.User.User;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
 @Data
 @NoArgsConstructor
 public class Request {
     @Id
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
     @ManyToOne
-    private User $user1;
+    private User user1;
     @ManyToOne
-    private User $user2;
+    private User user2;
 }
