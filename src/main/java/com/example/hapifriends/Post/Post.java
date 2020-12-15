@@ -11,9 +11,9 @@ import javax.persistence.*;
 public class Post {
     @Id
     private int id;
-    private String textPost;
-    private Boolean publicPost;
-    private int idAuthor;
+    private String text_post;
+    private Boolean public_post;
+    private int id_author;
     private int reaction;
 
 }
