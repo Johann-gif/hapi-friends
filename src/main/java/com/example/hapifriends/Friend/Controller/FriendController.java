@@ -18,27 +18,14 @@ public class FriendController {
     private User currentUser;
 
     public FriendController() {
-        User other = new User();
-        other.setId(5);
-        other.setPseudo("as");
-        other.setPassword("as");
-        other.setSurname("Schultz");
-        other.setFirstname("Antoine");
-        other.setEmail("antoine.schultz@lacatholille.fr");
-        other.setMob_number("");
-        other.setFriends(new ArrayList<User>());
-
-
         currentUser = new User();
         currentUser.setId(4);
         currentUser.setPseudo("as");
         currentUser.setPassword("as");
-        currentUser.setSurname("Schultz");
+        currentUser.setSurname("Schulz");
         currentUser.setFirstname("Antoine");
-        currentUser.setEmail("antoine.schultz@lacatholille.fr");
+        currentUser.setEmail("antoine.schulz@lacatholille.fr");
         currentUser.setMob_number("");
-        currentUser.setFriends(new ArrayList<User>());
-        currentUser.addFriend(other);
     }
 
     @GetMapping
