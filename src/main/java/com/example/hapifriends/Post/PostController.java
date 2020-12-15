@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/post")
+@RequestMapping(path = "/posts")
 public class PostController {
     @Autowired
     private PostRepository postRepository;

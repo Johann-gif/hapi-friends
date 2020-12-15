@@ -10,8 +10,8 @@ VALUES (3,'Guidez', 'Sébastien', 'sebastien.guidez@lacatholille.fr', null);
 INSERT INTO friends(user_id, friend_id) VALUES (1, 3);
 INSERT INTO friends(user_id, friend_id) VALUES (3, 1);
 
-INSERT INTO post(id,text_post,public_Post,id_author,reaction)
-VALUES (1,'ceci est le premier post', 1, 2, 4);
+INSERT INTO post(text_post,public_Post,id_author,reaction)
+VALUES ('ceci est le premier post', 1, 2, 4);
 
-INSERT INTO post(id,text_post,public_Post,id_author,reaction)
-VALUES (2,'ceci est le Deuxieme post', 1, 1, 9);
+INSERT INTO post(text_post,public_Post,id_author,reaction)
+VALUES ('ceci est le Deuxieme post', 1, 1, 9);

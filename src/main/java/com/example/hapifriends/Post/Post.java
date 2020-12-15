@@ -10,7 +10,8 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class Post {
     @Id
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
     private String text_post;
     private Boolean public_post;
     private int id_author;
