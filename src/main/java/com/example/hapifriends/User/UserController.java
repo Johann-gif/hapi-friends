@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.List;
 import java.util.Set;
@@ -16,6 +17,28 @@ import java.util.stream.Stream;
 public class UserController {
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    //Méthode avec requestBody
+    @PostMapping("/sign-up")
+    public void signUp(@RequestBody User user) {
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        userRepository.save(user);
+    }
+    //Méthode avec requestParam
+    @PostMapping("/sign-up2")
+    public ResponseEntity<User> addThisUser (@RequestParam String pseudo, @RequestParam String password, @RequestParam String nom, @RequestParam String prenom, @RequestParam String email, @RequestParam String numero) {
+        User myUser = new User();
+        myUser.setPseudo(pseudo);
+        myUser.setPassword(bCryptPasswordEncoder.encode(password));
+        myUser.setSurname(nom);
+        myUser.setFirstname(prenom);
+        myUser.setEmail(email);
+        myUser.setMob_number(numero);
+        userRepository.save(myUser);
+        return ResponseEntity.ok().body(myUser);
+    }
+
     @GetMapping
     public List<User> getUsers() {
         return userRepository.findAll();
@@ -26,18 +49,6 @@ public class UserController {
         User i = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found :: " + id));
         return ResponseEntity.ok().body(i);
-    }
-
-    @PostMapping()
-    public ResponseEntity<User> addThisUser (@RequestParam int id, @RequestParam String nom, @RequestParam String prenom, @RequestParam String email, @RequestParam String numero) {
-        User myUser = new User();
-        myUser.setId(id);
-        myUser.setSurname(nom);
-        myUser.setFirstname(prenom);
-        myUser.setEmail(email);
-        myUser.setMob_number(numero);
-        userRepository.save(myUser);
-        return ResponseEntity.ok().body(myUser);
     }
 
     @DeleteMapping("/{id}")
@@ -59,16 +70,16 @@ public class UserController {
     public ResponseEntity<User> changeClient (@PathVariable int id, @RequestParam(required = false) String nom, @RequestParam(required = false) String prenom, @RequestParam(required = false) String email, @RequestParam(required = false) String numero) throws ResourceNotFoundException {
         User myUser = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found :: " + id));
-        if(nom!=null) {
+        if (nom != null) {
             myUser.setSurname(nom);
         }
-        if(prenom!=null) {
+        if (prenom != null) {
             myUser.setFirstname(prenom);
         }
-        if(email!=null) {
+        if (email != null) {
             myUser.setEmail(email);
         }
-        if(numero!=null) {
+        if (numero != null) {
             myUser.setMob_number(numero);
         }
         userRepository.save(myUser);
@@ -82,5 +93,11 @@ public class UserController {
         List<User> myUsers = Stream.concat(myUsersSurname.stream(), myUsersFirstname.stream())
                 .collect(Collectors.toList());
         return myUsers;
+    }
+
+    @GetMapping("/isfriend")
+    public @ResponseBody Integer IsTheyFriend(@RequestParam int id1, @RequestParam int id2){
+        Integer myId = userRepository.IdIsFriend(id1,id2);
+        return myId;
     }
 }
