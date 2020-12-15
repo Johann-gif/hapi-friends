@@ -14,6 +14,7 @@ import java.util.Set;
 @NoArgsConstructor
 public class User {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String surname;
     private String firstname;
