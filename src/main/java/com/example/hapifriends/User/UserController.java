@@ -94,10 +94,4 @@ public class UserController {
                 .collect(Collectors.toList());
         return myUsers;
     }
-
-    @GetMapping("/isfriend")
-    public @ResponseBody Integer IsTheyFriend(@RequestParam int id1, @RequestParam int id2){
-        Integer myId = userRepository.IdIsFriend(id1,id2);
-        return myId;
-    }
 }

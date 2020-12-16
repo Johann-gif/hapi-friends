@@ -1,5 +1,5 @@
 INSERT INTO user(pseudo, password, surname, firstname, email, mob_number)
-VALUES ('da', 'da', 'De Almeida', 'Johann', 'johann.de-almeida@lacatholille.fr', '0766896607');
+VALUES ('dj', 'da', 'De Almeida', 'Johann', 'johann.de-almeida@lacatholille.fr', '0766896607');
 
 INSERT INTO user(pseudo, password, surname, firstname, email, mob_number)
 VALUES ('gg', 'gg', 'Giudice', 'Gianni', 'gianni.giudice@lacatholille.fr', null);

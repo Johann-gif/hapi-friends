@@ -31,4 +31,8 @@ public class User {
     )
     @JsonIgnoreProperties("friends")
     private List<User> friends;
+
+    public void addFriend(User user) {
+        friends.add(user);
+    }
 }
