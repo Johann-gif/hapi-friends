@@ -15,7 +15,7 @@ import java.util.Set;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private int id;
     private String pseudo;
     private String password;
     private String surname;
@@ -31,4 +31,8 @@ public class User {
     )
     @JsonIgnoreProperties("friends")
     private List<User> friends;
+
+    public void addFriend(User user) {
+        friends.add(user);
+    }
 }
