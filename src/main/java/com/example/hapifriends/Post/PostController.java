@@ -28,34 +28,26 @@ public class PostController {
         return ResponseEntity.ok().body(i);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteThisPost (@PathVariable int id) throws ResourceNotFoundException {
-        Post myPost = postRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Post not found :: " + id));
 
-        postRepository.delete(myPost);
-        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
-    }
 
     @PutMapping(path="/{id}")
-    public ResponseEntity<Post> UpdatePost(@PathVariable int id, @RequestParam(required = false) String title_post,
-                                           @RequestParam(required = false) String text_post,
-                                           @RequestParam(required = false) Boolean public_post) throws ResourceNotFoundException{
+    public ResponseEntity<Post> UpdatePost(@PathVariable int id, @RequestParam(required = false) String title,
+                                           @RequestParam(required = false) String text,
+                                           @RequestParam(required = false) Boolean ispublic) throws ResourceNotFoundException{
         Post myPost = postRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Post not found :: " + id));
-        if (title_post != null) {
-            myPost.setTitle(title_post);
+        if (title != null) {
+            myPost.setTitle(title);
         }
-        if (text_post != null) {
-            myPost.setText(text_post);
+        if (text != null) {
+            myPost.setText(text);
         }
-        if (public_post != null) {
-            myPost.setIspublic(public_post);
+        if (ispublic != null) {
+            myPost.setIspublic(ispublic);
         }
         postRepository.save(myPost);
         return ResponseEntity.ok().body(myPost);
     }
-
     @GetMapping("/search/{name}")
     public @ResponseBody List<Post> GetPostsByName(@PathVariable String name) {
         List<Post> myPostsTitle = postRepository.findByTitleIsContainingIgnoreCase(name);
@@ -67,4 +59,5 @@ public class PostController {
         List<Post> myPostsText = postRepository.findByTextIsContainingIgnoreCase(name);
         return myPostsText;
     }
+
 }
