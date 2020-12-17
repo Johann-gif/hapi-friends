@@ -3,6 +3,7 @@ package com.example.hapifriends.User;
 import org.apache.velocity.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -93,5 +94,16 @@ public class UserController {
         List<User> myUsers = Stream.concat(myUsersSurname.stream(), myUsersFirstname.stream())
                 .collect(Collectors.toList());
         return myUsers;
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<User> login(@RequestParam String pseudo, @RequestParam String password) {
+        User user = userRepository.findByPseudo(pseudo);
+        if (user != null && bCryptPasswordEncoder.matches(password, user.getPassword())) {
+            // CONNEXION
+            return new ResponseEntity<User>(HttpStatus.OK);
+        }
+
+        return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
     }
 }
