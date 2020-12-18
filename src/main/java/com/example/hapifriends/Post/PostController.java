@@ -1,6 +1,7 @@
 package com.example.hapifriends.Post;
 
 import com.example.hapifriends.User.User;
+import com.example.hapifriends.User.UserRepository;
 import org.apache.velocity.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,8 @@ import java.util.stream.Stream;
 @RequestMapping(path = "/posts")
 public class PostController {
     @Autowired
+    private UserRepository userRepository;
+    @Autowired
     private PostRepository postRepository;
     @GetMapping
     public List<Post> getPost() {
@@ -28,7 +31,25 @@ public class PostController {
         return ResponseEntity.ok().body(i);
     }
 
+    //Méthode avec requestParam
+    @PostMapping("/add")
+    public ResponseEntity<Post> addThisPost (@RequestParam String title, @RequestParam String text, @RequestParam Boolean ispublic, @RequestParam int id_user)  throws ResourceNotFoundException{
+        Post myPost = new Post();
+        myPost.setTitle(title);
+        myPost.setText(text);
+        myPost.setIspublic(ispublic);
+        myPost.setUser(userRepository.findById(id_user).orElseThrow(() -> new ResourceNotFoundException("User not found :: " + id_user)));
+        postRepository.save(myPost);
+        return ResponseEntity.ok().body(myPost);
+    }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteThisPost (@PathVariable int id) throws ResourceNotFoundException {
+        Post myPost = postRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Post not found :: " + id));
+        postRepository.delete(myPost);
+        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+    }
 
     @PutMapping(path="/{id}")
     public ResponseEntity<Post> UpdatePost(@PathVariable int id, @RequestParam(required = false) String title,
@@ -54,9 +75,9 @@ public class PostController {
         return myPostsTitle;
     }
 
-    @GetMapping("/searchText/{name}")
-    public @ResponseBody List<Post> GetPostsByText(@PathVariable String name) {
-        List<Post> myPostsText = postRepository.findByTextIsContainingIgnoreCase(name);
+    @GetMapping("/searchText/{text}")
+    public @ResponseBody List<Post> GetPostsByText(@PathVariable String text) {
+        List<Post> myPostsText = postRepository.findByTextIsContainingIgnoreCase(text);
         return myPostsText;
     }
 
