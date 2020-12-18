@@ -30,53 +30,54 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> GetThisUser(@PathVariable int id) throws ResourceNotFoundException {
-        User i = userRepository.findById(id)
+    public ResponseEntity<User> getUser(@PathVariable int id) throws ResourceNotFoundException {
+        User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found :: " + id));
-        return ResponseEntity.ok().body(i);
+
+        return ResponseEntity.ok().body(user);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteThisUser (@PathVariable int id) throws ResourceNotFoundException {
-        User myUser = userRepository.findById(id)
+    public ResponseEntity<Void> deleteUser (@PathVariable int id) throws ResourceNotFoundException {
+        User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found :: " + id));
+        List<User> friends = user.getFriends();
 
-        List<User> friends = myUser.getFriends();
         for (User friend : friends) {
-            friend.getFriends().remove(myUser);
+            friend.getFriends().remove(user);
         }
-        myUser.getFriends().removeAll(myUser.getFriends());
-
-        userRepository.delete(myUser);
+        user.getFriends().removeAll(user.getFriends());
+        userRepository.delete(user);
         return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
 
     @PutMapping(path="/{id}")
-    public ResponseEntity<User> changeClient (@PathVariable int id, @RequestParam(required = false) String nom, @RequestParam(required = false) String prenom, @RequestParam(required = false) String email, @RequestParam(required = false) String numero) throws ResourceNotFoundException {
-        User myUser = userRepository.findById(id)
+    public ResponseEntity<User> updateUser (@PathVariable int id, @RequestParam(required = false) String surname, @RequestParam(required = false) String firstname, @RequestParam(required = false) String email, @RequestParam(required = false) String number) throws ResourceNotFoundException {
+        User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found :: " + id));
-        if (nom != null) {
-            myUser.setSurname(nom);
+        
+        if (surname != null) {
+            user.setSurname(surname);
         }
-        if (prenom != null) {
-            myUser.setFirstname(prenom);
+        if (firstname != null) {
+            user.setFirstname(firstname);
         }
         if (email != null) {
-            myUser.setEmail(email);
+            user.setEmail(email);
         }
-        if (numero != null) {
-            myUser.setMob_number(numero);
+        if (number != null) {
+            user.setMob_number(number);
         }
-        userRepository.save(myUser);
-        return ResponseEntity.ok().body(myUser);
+        userRepository.save(user);
+        return ResponseEntity.ok().body(user);
     }
 
     @GetMapping("/search/{name}")
-    public @ResponseBody List<User> GetUsersByName(@PathVariable String name) {
-        List<User> myUsersSurname = userRepository.findBySurnameStartsWithIgnoreCase(name);
-        List<User> myUsersFirstname = userRepository.findByFirstnameStartsWithIgnoreCase(name);
-        List<User> myUsers = Stream.concat(myUsersSurname.stream(), myUsersFirstname.stream())
+    public @ResponseBody List<User> searchUser(@PathVariable String name) {
+        List<User> usersBySurname = userRepository.findBySurnameStartsWithIgnoreCase(name);
+        List<User> usersByFirstname = userRepository.findByFirstnameStartsWithIgnoreCase(name);
+
+        return Stream.concat(usersBySurname.stream(), usersByFirstname.stream())
                 .collect(Collectors.toList());
-        return myUsers;
     }
 }

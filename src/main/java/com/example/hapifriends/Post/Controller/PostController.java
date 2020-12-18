@@ -18,66 +18,67 @@ public class PostController {
     private UserRepository userRepository;
     @Autowired
     private PostRepository postRepository;
+
     @GetMapping
-    public List<Post> getPost() {
+    public List<Post> getPosts() {
         return postRepository.findAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Post> GetThisPost(@PathVariable int id) throws ResourceNotFoundException {
-        Post i = postRepository.findById(id)
+    public ResponseEntity<Post> getPost(@PathVariable int id) throws ResourceNotFoundException {
+        Post post = postRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Post not found :: " + id));
-        return ResponseEntity.ok().body(i);
+
+        return ResponseEntity.ok().body(post);
     }
 
-    //Méthode avec requestParam
     @PostMapping("/add")
-    public ResponseEntity<Post> addThisPost (@RequestParam String title, @RequestParam String text, @RequestParam Boolean ispublic, @RequestParam int id_user)  throws ResourceNotFoundException{
-        Post myPost = new Post();
-        myPost.setTitle(title);
-        myPost.setText(text);
-        myPost.setIspublic(ispublic);
-        myPost.setUser(userRepository.findById(id_user).orElseThrow(() -> new ResourceNotFoundException("User not found :: " + id_user)));
-        postRepository.save(myPost);
-        return ResponseEntity.ok().body(myPost);
+    public ResponseEntity<Post> addPost(@RequestParam String title, @RequestParam String text, @RequestParam Boolean shared, @RequestParam int user_id)  throws ResourceNotFoundException {
+        Post post = new Post();
+
+        post.setTitle(title);
+        post.setText(text);
+        post.setShared(shared);
+        post.setAuthor(userRepository.findById(user_id).orElseThrow(() -> new ResourceNotFoundException("User not found :: " + user_id)));
+        postRepository.save(post);
+        return ResponseEntity.ok().body(post);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteThisPost (@PathVariable int id) throws ResourceNotFoundException {
-        Post myPost = postRepository.findById(id)
+    public ResponseEntity<Void> deletePost(@PathVariable int id) throws ResourceNotFoundException {
+        Post post = postRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Post not found :: " + id));
-        postRepository.delete(myPost);
+        postRepository.delete(post);
+
         return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
 
     @PutMapping(path="/{id}")
-    public ResponseEntity<Post> UpdatePost(@PathVariable int id, @RequestParam(required = false) String title,
-                                           @RequestParam(required = false) String text,
-                                           @RequestParam(required = false) Boolean ispublic) throws ResourceNotFoundException{
-        Post myPost = postRepository.findById(id)
+    public ResponseEntity<Post> updatePost(@PathVariable int id, @RequestParam(required = false) String title, @RequestParam(required = false) String text, @RequestParam(required = false) Boolean shared) throws ResourceNotFoundException {
+        Post post = postRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Post not found :: " + id));
+
         if (title != null) {
-            myPost.setTitle(title);
+            post.setTitle(title);
         }
         if (text != null) {
-            myPost.setText(text);
+            post.setText(text);
         }
-        if (ispublic != null) {
-            myPost.setIspublic(ispublic);
+        if (shared != null) {
+            post.setShared(shared);
         }
-        postRepository.save(myPost);
-        return ResponseEntity.ok().body(myPost);
+        postRepository.save(post);
+        return ResponseEntity.ok().body(post);
     }
+
     @GetMapping("/search/{name}")
-    public @ResponseBody List<Post> GetPostsByName(@PathVariable String name) {
-        List<Post> myPostsTitle = postRepository.findByTitleIsContainingIgnoreCase(name);
-        return myPostsTitle;
+    public @ResponseBody List<Post> searchPostByName(@PathVariable String name) {
+        return postRepository.findByTitleIsContainingIgnoreCase(name);
     }
 
     @GetMapping("/searchText/{text}")
-    public @ResponseBody List<Post> GetPostsByText(@PathVariable String text) {
-        List<Post> myPostsText = postRepository.findByTextIsContainingIgnoreCase(text);
-        return myPostsText;
+    public @ResponseBody List<Post> searchPostByText(@PathVariable String text) {
+        return postRepository.findByTextIsContainingIgnoreCase(text);
     }
 
 }
