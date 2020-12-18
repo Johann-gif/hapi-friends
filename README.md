@@ -13,9 +13,10 @@ Les membres du groupe sont les suivants :
 
 ## Fonctionnalités
 
-### Sécurité
 
 Sur hapi-friends, il est possible d'effectuer les actions suivantes :
+
+### Sécurité
 
 - Créer un compte en envoyant à la route **/security/sign-up** un .json de cette forme : (**POST**)
 
@@ -34,8 +35,6 @@ Sur hapi-friends, il est possible d'effectuer les actions suivantes :
 ```
 
 ### Utilisateur
-
-Sur hapi-friends, il est possible d'effectuer les actions suivantes :
 
 - Afficher les utilisateurs existant en base via la route **/users** (**GET**)
 
