@@ -44,12 +44,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .mvcMatchers("/sign-up").permitAll()
                 .mvcMatchers("/sign-up2").permitAll()
                 .mvcMatchers("/sign-in").permitAll()
-                .mvcMatchers("/users").permitAll()
-                .mvcMatchers("/users/{*}").permitAll()
-                .mvcMatchers("/friends").permitAll()
-                .mvcMatchers("/friends/{*}").permitAll()
-                .mvcMatchers("/posts").permitAll()
-                .mvcMatchers("/posts/{*}").permitAll()
+                .mvcMatchers("/users").authenticated()
+                .mvcMatchers("/users/{*}").authenticated()
+                .mvcMatchers("/friends").authenticated()
+                .mvcMatchers("/friends/{*}").authenticated()
+                .mvcMatchers("/posts").authenticated()
+                .mvcMatchers("/posts/{*}").authenticated()
                 .and().cors()
                 .and().oauth2ResourceServer().jwt();
     }
