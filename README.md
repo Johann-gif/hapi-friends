@@ -13,24 +13,11 @@ Les membres du groupe sont les suivants :
 
 ## Fonctionnalités
 
-### Utilisateur
+### Sécurité
 
 Sur hapi-friends, il est possible d'effectuer les actions suivantes :
 
-- Afficher les utilisateurs existant en base via la route **/users** (**GET**)
-
-- Afficher un utilisateur existant en base en renseignant son id via la route **/users/{id}** (**GET**)
-
-- Créer un compte en envoyant à la route **/users/sign-up** un .json de cette forme : (**POST**)
-
-- Modifier un utilisateur existant en base en renseignant son id via la route **/users/{id}** et envoyant les paramètres suivants : (**PUT**)
-
-  - nom
-  - prenom
-  - email
-  - numero
-
-- Supprimer un utilisateur existant en base en renseignant son id via la route **/users/{id}** (**DELETE**)
+- Créer un compte en envoyant à la route **/security/sign-up** un .json de cette forme : (**POST**)
 
 ```json
 {
@@ -45,5 +32,22 @@ Sur hapi-friends, il est possible d'effectuer les actions suivantes :
     ]
 }
 ```
+
+### Utilisateur
+
+Sur hapi-friends, il est possible d'effectuer les actions suivantes :
+
+- Afficher les utilisateurs existant en base via la route **/users** (**GET**)
+
+- Afficher un utilisateur existant en base en renseignant son id via la route **/users/{id}** (**GET**)
+
+- Modifier un utilisateur existant en base en renseignant son id via la route **/users/{id}** et envoyant les paramètres suivants : (**PUT**)
+
+  - nom
+  - prenom
+  - email
+  - numero
+
+- Supprimer un utilisateur existant en base en renseignant son id via la route **/users/{id}** (**DELETE**)
 
 - Rechercher un utilisateur existant en base en renseignant son nom via la route **/users/{name}** (**GET**)
