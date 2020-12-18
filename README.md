@@ -63,3 +63,28 @@ Sur hapi-friends, il est possible d'effectuer les actions suivantes :
   - number
 
 - Rechercher un utilisateur existant en base en renseignant son nom via la route **/users/{name}** (**GET**)
+
+### Message
+
+- Afficher les messages existant en base via la route **/posts** (**GET**)
+
+- Afficher un message existant en base en renseignant son id via la route **/posts/{id}** (**GET**)
+
+- Créer un message en envoyant à la route **/add** les paramètres suivants : (**POST**)
+
+    - title
+    - text
+    - shared
+    - user_id
+    
+- Supprimer un message existant en base en renseignant son id via la route **/posts/{id}** (**DELETE**)
+
+- Modifier un message existant en base en renseignant son id via la route **/posts/{id}** et envoyant les paramètres suivants : (**PUT**)
+
+  - title
+  - text
+  - shared
+
+- Rechercher un message existant en base par titre en renseignant son titre via la route **/posts/search/{name}** (**GET**)
+
+- Rechercher un message existant en base par contenu en renseignant son contenu via la route **/posts/searchText/{text}** (**GET**)
