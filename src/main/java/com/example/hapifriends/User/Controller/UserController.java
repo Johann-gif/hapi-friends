@@ -2,16 +2,12 @@ package com.example.hapifriends.User.Controller;
 
 import com.example.hapifriends.User.Entity.User;
 import com.example.hapifriends.User.Repository.UserRepository;
-import kong.unirest.HttpResponse;
-import kong.unirest.Unirest;
 import org.apache.velocity.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -55,7 +51,7 @@ public class UserController {
     public ResponseEntity<User> updateUser (@PathVariable int id, @RequestParam(required = false) String surname, @RequestParam(required = false) String firstname, @RequestParam(required = false) String email, @RequestParam(required = false) String number) throws ResourceNotFoundException {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found :: " + id));
-        
+
         if (surname != null) {
             user.setSurname(surname);
         }
