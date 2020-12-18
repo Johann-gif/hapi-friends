@@ -55,7 +55,7 @@ Sur hapi-friends, il est possible d'effectuer les actions suivantes :
 
 - Supprimer un utilisateur existant en base en renseignant son id via la route **/users/{id}** (**DELETE**)
 
-- Modifier un utilisateur existant en base en renseignant son id via la route **/users/{id}** et envoyant les paramètres suivants : (**PUT**)
+- Modifier un utilisateur existant en base en renseignant son id via la route **/users/{id}** et en envoyant les paramètres suivants : (**PUT**)
 
   - surname
   - firstname
@@ -79,7 +79,7 @@ Sur hapi-friends, il est possible d'effectuer les actions suivantes :
     
 - Supprimer un message existant en base en renseignant son id via la route **/posts/{id}** (**DELETE**)
 
-- Modifier un message existant en base en renseignant son id via la route **/posts/{id}** et envoyant les paramètres suivants : (**PUT**)
+- Modifier un message existant en base en renseignant son id via la route **/posts/{id}** et en envoyant les paramètres suivants : (**PUT**)
 
   - title
   - text
@@ -88,3 +88,23 @@ Sur hapi-friends, il est possible d'effectuer les actions suivantes :
 - Rechercher un message existant en base par titre en renseignant son titre via la route **/posts/search/{name}** (**GET**)
 
 - Rechercher un message existant en base par contenu en renseignant son contenu via la route **/posts/searchText/{text}** (**GET**)
+
+### Ami
+
+
+- Afficher les amis d'un utilisateur existant en base en renseignant son id via la route **/friends/{owner_id}** (**GET**)
+
+- Rechercher un ami d'un utilisateur existant en base par pseudo en renseignant l'id de l'utilisateur et le pseudo de l'ami recherché via la route **/friends/search/{owner_id}/{name}** (**GET**)
+
+- Afficher les demandes d'ami via la route **/friends/show-requests** (**GET**)
+
+- Faire une demande d'ami en envoyant à la route **/friends/request** les paramètres suivants : (**POST**)
+    - owner_id
+    - to_add_id
+
+- Répondre à une demande d'ami en envoyant à la route **/friends/reply** les paramètres suivants : (**POST**)
+    - receiver_id
+    - sender_id
+    - response
+
+- Supprimer un lien d'amitié via la route **/friends/{owner_id}/{to_delete_id}** (**DELETE**)
