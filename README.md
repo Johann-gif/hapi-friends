@@ -18,7 +18,7 @@ Sur hapi-friends, il est possible d'effectuer les actions suivantes :
 
 ### Sécurité
 
-- Créer un compte en envoyant à la route **/security/sign-up** un .json de cette forme : (**POST**)
+- Créer un compte en envoyant à la route **/sign-up** un .json de cette forme : (**POST**)
 
 ```json
 {
@@ -34,12 +34,18 @@ Sur hapi-friends, il est possible d'effectuer les actions suivantes :
 }
 ```
 
--Créer un compte en envoyant à la route **/security/sign-up2** les paramètres suivants : (**POST**) => version alternative de sign-up
+- Créer un compte en envoyant à la route **/sign-up2** les paramètres suivants : (**POST**) => version alternative de sign-up
 
     - pseudo
     - password
-    - nom
-    - 
+    - surname
+    - firstname
+    - email
+    - number
+
+- Connecter son compte en envoyant à la route **/sign-in** les paramètres suivants : (**POST**)
+    - pseudo
+    - password
 
 ### Utilisateur
 
