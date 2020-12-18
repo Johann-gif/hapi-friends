@@ -57,6 +57,7 @@ Sur hapi-friends, il est possible d'effectuer les actions suivantes :
 
 - Modifier un utilisateur existant en base en renseignant son id via la route **/users/{id}** et en envoyant les paramètres suivants : (**PUT**)
 
+  - pseudo
   - surname
   - firstname
   - email
