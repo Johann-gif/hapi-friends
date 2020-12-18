@@ -53,13 +53,13 @@ Sur hapi-friends, il est possible d'effectuer les actions suivantes :
 
 - Afficher un utilisateur existant en base en renseignant son id via la route **/users/{id}** (**GET**)
 
+- Supprimer un utilisateur existant en base en renseignant son id via la route **/users/{id}** (**DELETE**)
+
 - Modifier un utilisateur existant en base en renseignant son id via la route **/users/{id}** et envoyant les paramètres suivants : (**PUT**)
 
-  - nom
-  - prenom
+  - surname
+  - firstname
   - email
-  - numero
-
-- Supprimer un utilisateur existant en base en renseignant son id via la route **/users/{id}** (**DELETE**)
+  - number
 
 - Rechercher un utilisateur existant en base en renseignant son nom via la route **/users/{name}** (**GET**)
