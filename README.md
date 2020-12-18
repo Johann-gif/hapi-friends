@@ -2,7 +2,7 @@
 
 ## Description du projet
 
-hapi-friends est un projet d'API réseau social basique effectué dans le cadre du cours Spring de M1 III, Université Catholique de Lille.
+hAPI-friends est un projet d'API réseau social basique effectué dans le cadre du cours Spring de M1 III, Université Catholique de Lille.
 
 ## Membres du groupe
 
