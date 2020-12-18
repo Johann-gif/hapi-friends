@@ -108,3 +108,7 @@ Sur hapi-friends, il est possible d'effectuer les actions suivantes :
     - response
 
 - Supprimer un lien d'amitié via la route **/friends/{owner_id}/{to_delete_id}** (**DELETE**)
+
+### Sécurisation de l'API via Auth0
+
+Toutes les routes nécessitent une authentification, mises à part les deux routes permettant l'inscription et la route permettant la connexion.
