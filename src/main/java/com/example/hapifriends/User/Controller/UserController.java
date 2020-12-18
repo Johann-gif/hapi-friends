@@ -48,10 +48,13 @@ public class UserController {
     }
 
     @PutMapping(path="/{id}")
-    public ResponseEntity<User> updateUser (@PathVariable int id, @RequestParam(required = false) String surname, @RequestParam(required = false) String firstname, @RequestParam(required = false) String email, @RequestParam(required = false) String number) throws ResourceNotFoundException {
+    public ResponseEntity<User> updateUser (@PathVariable int id, @RequestParam(required = false) String pseudo, @RequestParam(required = false) String surname, @RequestParam(required = false) String firstname, @RequestParam(required = false) String email, @RequestParam(required = false) String number) throws ResourceNotFoundException {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found :: " + id));
 
+        if (pseudo != null) {
+            user.setPseudo(pseudo);
+        }
         if (surname != null) {
             user.setSurname(surname);
         }
