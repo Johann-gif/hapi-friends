@@ -11,6 +11,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     List<User> findBySurnameStartsWithIgnoreCase(String surname);
     List<User> findByFirstnameStartsWithIgnoreCase(String firstname);
+    User findByPseudo(String pseudo);
     @Query(value = "SELECT * FROM user WHERE id = (SELECT f.friend_id FROM friends f WHERE f.user_id = :id1 and f.friend_id = :id2)",
             nativeQuery = true)
     User getFriendIfExists(

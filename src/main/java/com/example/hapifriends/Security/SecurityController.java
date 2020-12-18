@@ -5,6 +5,7 @@ import com.example.hapifriends.User.Repository.UserRepository;
 import kong.unirest.HttpResponse;
 import kong.unirest.Unirest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -37,17 +38,29 @@ public class SecurityController {
         return ResponseEntity.ok().body(myUser);
     }
 
+    @PostMapping("/login")
+    public ResponseEntity<User> login(@RequestParam String pseudo, @RequestParam String password) {
+        User user = userRepository.findByPseudo(pseudo);
+        if (user != null && bCryptPasswordEncoder.matches(password, user.getPassword())) {
+            // CONNEXION
+            return new ResponseEntity<User>(HttpStatus.OK);
+        }
+
+        return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
+    }
+
     @PostMapping("/sign-in")
-    public String signIn(@RequestBody String userCredentials) {
-        String access_token = "";
+    public String signIn(@RequestParam String pseudo, @RequestParam String password) {
+        User user = userRepository.findByPseudo(pseudo);
+        if (user != null && bCryptPasswordEncoder.matches(password, user.getPassword())) {
+            HttpResponse<String> response = Unirest.post("https://dev-h9lk8101.eu.auth0.com/oauth/token")
+                    .header("content-type", "application/json")
+                    .body("{\"client_id\":\"K6M8XP8ilUh9lS6bI026Zxw0if804OA6\",\"client_secret\":\"Sb-6bgfEYpYabvXreJrFZQ6ja7veoWZHddEi5z05VHVGRCK9T8LBfWs_HXFB4C1N\",\"audience\":\"https://hapi-friends/\",\"grant_type\":\"client_credentials\"}")
+                    .asString();
+            
+            return response.getBody().toString();
+        }
 
-        HttpResponse<String> response = Unirest.post("https://dev-h9lk8101.eu.auth0.com/oauth/token")
-                .header("content-type", "application/json")
-                .body("{\"client_id\":\"K6M8XP8ilUh9lS6bI026Zxw0if804OA6\",\"client_secret\":\"Sb-6bgfEYpYabvXreJrFZQ6ja7veoWZHddEi5z05VHVGRCK9T8LBfWs_HXFB4C1N\",\"audience\":\"https://hapi-friends/\",\"grant_type\":\"client_credentials\"}")
-                .asString();
-        access_token = response.getBody().toString();
-
-
-        return access_token;
+        return "Identifiants incorrects.";
     }
 }
