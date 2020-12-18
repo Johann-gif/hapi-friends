@@ -1,4 +1,4 @@
-package com.example.hapifriends;
+package com.example.hapifriends.Security;
 
 import org.springframework.security.oauth2.core.OAuth2Error;
 import org.springframework.security.oauth2.core.OAuth2TokenValidator;

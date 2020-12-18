@@ -2,10 +2,13 @@ package com.example.hapifriends.User.Controller;
 
 import com.example.hapifriends.User.Entity.User;
 import com.example.hapifriends.User.Repository.UserRepository;
+import kong.unirest.HttpResponse;
+import kong.unirest.Unirest;
 import org.apache.velocity.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -21,25 +24,6 @@ public class UserController {
     private UserRepository userRepository;
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
-    //Méthode avec requestBody
-    @PostMapping("/sign-up")
-    public void signUp(@RequestBody User user) {
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        userRepository.save(user);
-    }
-    //Méthode avec requestParam
-    @PostMapping("/sign-up2")
-    public ResponseEntity<User> addThisUser (@RequestParam String pseudo, @RequestParam String password, @RequestParam String nom, @RequestParam String prenom, @RequestParam String email, @RequestParam String numero) {
-        User myUser = new User();
-        myUser.setPseudo(pseudo);
-        myUser.setPassword(bCryptPasswordEncoder.encode(password));
-        myUser.setSurname(nom);
-        myUser.setFirstname(prenom);
-        myUser.setEmail(email);
-        myUser.setMob_number(numero);
-        userRepository.save(myUser);
-        return ResponseEntity.ok().body(myUser);
-    }
 
     @GetMapping
     public List<User> getUsers() {

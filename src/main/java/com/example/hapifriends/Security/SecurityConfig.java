@@ -1,4 +1,4 @@
-package com.example.hapifriends;
+package com.example.hapifriends.Security;
 
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -40,9 +40,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception {
         http.oauth2ResourceServer().jwt();
         http.authorizeRequests()
-                .mvcMatchers("/users").permitAll()
-                .mvcMatchers("/friends").authenticated()
-                .mvcMatchers("/posts").hasAuthority("SCOPE_read:posts")
+                .mvcMatchers("/security/{*}").permitAll()
+                .mvcMatchers("/users/{*}").authenticated()
+                .mvcMatchers("/friends/{*}").authenticated()
+                .mvcMatchers("/posts/{*}").authenticated()
                 .and().cors()
                 .and().oauth2ResourceServer().jwt();
     }
