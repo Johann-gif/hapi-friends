@@ -13,7 +13,7 @@ public class Request {
     @Id
     private int id;
     @ManyToOne
-    private User user1;
+    private User sender;
     @ManyToOne
-    private User user2;
+    private User receiver;
 }

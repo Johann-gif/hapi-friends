@@ -1,8 +1,11 @@
 package com.example.hapifriends.Friend.Controller;
 
+import com.example.hapifriends.Friend.Entity.Request;
+import com.example.hapifriends.Friend.Repository.RequestRepository;
 import com.example.hapifriends.User.Entity.User;
 import com.example.hapifriends.User.Repository.UserRepository;
 import org.apache.velocity.exception.ResourceNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +16,10 @@ import java.util.List;
 @RestController
 @RequestMapping(path="/friends")
 public class FriendController {
+    @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private RequestRepository requestRepository;
 
     @GetMapping
     public List<User> getFriends(@PathVariable int user_id) throws ResourceNotFoundException
@@ -48,18 +54,40 @@ public class FriendController {
        return result;
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<User> addFriend(@RequestParam int owner_id, @RequestParam int to_add_id) throws ResourceNotFoundException {
+    @PostMapping("/request")
+    public String createRequest(@RequestParam int owner_id, @RequestParam int to_add_id) throws ResourceNotFoundException {
         User owner = userRepository.findById(owner_id).orElseThrow(() -> new ResourceNotFoundException("User not found :: " + owner_id));
         User to_add = userRepository.findById(to_add_id).orElseThrow(() -> new ResourceNotFoundException("User not found :: " + to_add_id));
 
-        owner.addFriend(to_add);
-        to_add.addFriend(owner);
+        Request request = new Request();
+        request.setSender(owner);
+        request.setReceiver(to_add);
+        requestRepository.save(request);
+        return "Demande bien envoyée à " + to_add.getPseudo() + ".";
+    }
 
-        userRepository.save(owner);
-        userRepository.save(to_add);
+    @PostMapping("/reply")
+    public String reply(@RequestParam int receiver_id, @RequestParam int sender_id, boolean response) throws ResourceNotFoundException {
+        User sender = userRepository.findById(sender_id).orElseThrow(() -> new ResourceNotFoundException("User not found :: " + sender_id));
+        User receiver = userRepository.findById(receiver_id).orElseThrow(() -> new ResourceNotFoundException("User not found :: " + receiver_id));
+        Request request = requestRepository.findBySenderAndReceiver(sender, receiver);
 
-        return ResponseEntity.ok().body(to_add);
+        if (request != null) {
+            // L'invitation est acceptée
+            if (response) {
+                sender.addFriend(receiver);
+                receiver.addFriend(sender);
+                requestRepository.delete(request);
+                userRepository.save(sender);
+                userRepository.save(receiver);
+                return "Demande acceptée.";
+            }
+            // L'invitation est refusée
+            requestRepository.delete(request);
+            return "Demande refusée.";
+        }
+        // L'invitation n'existe pas
+        return "Demande inexistante.";
     }
 
     @DeleteMapping("/{id}")
