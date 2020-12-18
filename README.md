@@ -1,4 +1,4 @@
-# hapi-friends
+# hAPI friends
 
 ## Description du projet
 
