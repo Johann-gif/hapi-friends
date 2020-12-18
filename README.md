@@ -112,3 +112,7 @@ Sur hapi-friends, il est possible d'effectuer les actions suivantes :
 ### Sécurisation de l'API via Auth0
 
 Toutes les routes nécessitent une authentification, mises à part les deux routes permettant l'inscription et la route permettant la connexion.
+
+### Collection Postman
+
+Le fichier postman est à la racine du projet et a pour nom **hapifriends.postman_collection.json**.
