@@ -34,6 +34,13 @@ Sur hapi-friends, il est possible d'effectuer les actions suivantes :
 }
 ```
 
+-Créer un compte en envoyant à la route **/security/sign-up2** les paramètres suivants : (**POST**) => version alternative de sign-up
+
+    - pseudo
+    - password
+    - nom
+    - 
+
 ### Utilisateur
 
 - Afficher les utilisateurs existant en base via la route **/users** (**GET**)
