@@ -21,26 +21,15 @@ public class FriendController {
     @Autowired
     private RequestRepository requestRepository;
 
-    @GetMapping
-    public List<User> getFriends(@PathVariable int user_id) throws ResourceNotFoundException
-    {
-        User user = userRepository.findById(user_id).orElseThrow(() -> new ResourceNotFoundException("User not found :: " + user_id));
 
-        return user.getFriends();
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<User> getFriend(@PathVariable int owner_id, @PathVariable int friend_id) throws ResourceNotFoundException {
+    @GetMapping("/find/{owner_id}")
+    public List<User> getFriends(@PathVariable int owner_id) throws ResourceNotFoundException {
         User owner = userRepository.findById(owner_id).orElseThrow(() -> new ResourceNotFoundException("User not found :: " + owner_id));
-        User friend = userRepository.findById(friend_id).orElseThrow(() -> new ResourceNotFoundException("User not found :: " + friend_id));
 
-        if (owner.getFriends().contains(friend)) {
-            return ResponseEntity.ok().body(friend);
-        }
-        return ResponseEntity.notFound().build();
+        return owner.getFriends();
     }
 
-   @GetMapping("/search/{name}")
+   @GetMapping("/search/{owner_id}/{name}")
     public @ResponseBody List<User> getFriendsByName(@PathVariable int owner_id, @PathVariable String name) throws ResourceNotFoundException {
        User owner = userRepository.findById(owner_id).orElseThrow(() -> new ResourceNotFoundException("User not found :: " + owner_id));
        List<User> result = new ArrayList<>();
@@ -52,6 +41,11 @@ public class FriendController {
            }
        }
        return result;
+    }
+
+    @GetMapping("/show-requests")
+    public List<Request> showRequests() {
+        return requestRepository.findAll();
     }
 
     @PostMapping("/request")
@@ -90,7 +84,7 @@ public class FriendController {
         return "Demande inexistante.";
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{owner_id}/{to_delete_id}")
     public ResponseEntity<Void> deleteFriend(@PathVariable int owner_id, @PathVariable int to_delete_id) throws ResourceNotFoundException {
         User owner = userRepository.findById(owner_id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found :: " + owner_id));
