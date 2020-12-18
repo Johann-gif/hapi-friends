@@ -1,0 +1,562 @@
+{
+	"info": {
+		"_postman_id": "b75ecdf8-4233-49dd-9c9c-ee74ba072b8a",
+		"name": "hapifriends",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://127.0.0.1:8080/sign-in?pseudo=dj&password=test",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8080/users",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"users"
+					]
+				},
+				"description": "Connexion en tant que dj, récupération du token"
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:8080/users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8080/users/1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"1"
+					]
+				},
+				"description": "Récupération de tous les utilisateurs"
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:8080/sign-up",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 4,\n    \"pseudo\": \"test\",\n    \"password\": \"test\",\n    \"surname\": \"Test\",\n    \"firstname\": \"Test\",\n    \"email\": \"test.test@lacatholille.fr\",\n    \"mob_number\": null,\n    \"friends\": [\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8080/sign-up",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"sign-up"
+					]
+				},
+				"description": "POST request:\n\nSign up with json :\n\n{\n    \"id\": 4,\n    \"pseudo\": \"test\",\n    \"password\": \"test\",\n    \"surname\": \"Test\",\n    \"firstname\": \"Test\",\n    \"email\": \"test.test@lacatholille.fr\",\n    \"mob_number\": null,\n    \"friends\": [\n    ]\n}"
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:8080/users/1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8080/users/search/d",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"search",
+						"d"
+					]
+				},
+				"description": "GET USER 1"
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:8080/users/4",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8080/users/4",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"4"
+					]
+				},
+				"description": "DELETE suppression de l'utilisateur 4"
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:8080/users/search/d",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8080/users/1?pseudo=jd",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"1"
+					],
+					"query": [
+						{
+							"key": "pseudo",
+							"value": "jd"
+						}
+					]
+				},
+				"description": "GET récupération des utilisateurs dont le pseudo commence par d"
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:8080/users/1?pseudo=jd",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8080/users/1?pseudo=jd",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"1"
+					],
+					"query": [
+						{
+							"key": "pseudo",
+							"value": "jd"
+						}
+					]
+				},
+				"description": "PUT on modifie le pseudo de l'utilisateur 1 en jd"
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:8080/posts",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8080/posts",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"posts"
+					]
+				},
+				"description": "Affiche tous les posts"
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:8080/posts/1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8080/posts/1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"posts",
+						"1"
+					]
+				},
+				"description": "Affiche le Post 1"
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:8080/posts/add?title=test&text=ceci est un test&shared=true&user_id=1",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8080/posts/add?title=test&text=ceci est un test&shared=true&user_id=1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"posts",
+						"add"
+					],
+					"query": [
+						{
+							"key": "title",
+							"value": "test"
+						},
+						{
+							"key": "text",
+							"value": "ceci est un test"
+						},
+						{
+							"key": "shared",
+							"value": "true"
+						},
+						{
+							"key": "user_id",
+							"value": "1"
+						}
+					]
+				},
+				"description": "Ajoute un post de l'utilisateur 1"
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:8080/posts/3",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8080/posts/3",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"posts",
+						"3"
+					]
+				},
+				"description": "Supprime le post numéro 3"
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:8080/posts/1?text=Bienvenue tout le monde !",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8080/posts/1?text=Bienvenue tout le monde !",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"posts",
+						"1"
+					],
+					"query": [
+						{
+							"key": "text",
+							"value": "Bienvenue tout le monde !"
+						}
+					]
+				},
+				"description": "Modifie le contenu du post 1"
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:8080/posts/search/Bien",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8080/posts/search/Bien",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"posts",
+						"search",
+						"Bien"
+					]
+				},
+				"description": "Affiche les posts commençant par \"Bien\""
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:8080/posts/searchText/Bien",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8080/posts/searchText/Bien",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"posts",
+						"searchText",
+						"Bien"
+					]
+				},
+				"description": "Affiche les posts dont le texte commence par bien"
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:8080/friends/find/1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8080/friends/find/1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"friends",
+						"find",
+						"1"
+					]
+				},
+				"description": "Affiche les amis de l'utilisateur 1"
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:8080/friends/search/1/g",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8080/friends/search/1/g",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"friends",
+						"search",
+						"1",
+						"g"
+					]
+				},
+				"description": "Affiche les amis de l'utilisateur 1 dont le pseudo contient un g"
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:8080/friends/show-requests",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8080/friends/show-requests",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"friends",
+						"show-requests"
+					]
+				},
+				"description": "Affiche toutes les demandes d'ami"
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:8080/friends/request?owner_id=1&to_add_id=2",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8080/friends/request?owner_id=1&to_add_id=2",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"friends",
+						"request"
+					],
+					"query": [
+						{
+							"key": "owner_id",
+							"value": "1"
+						},
+						{
+							"key": "to_add_id",
+							"value": "2"
+						}
+					]
+				},
+				"description": "Demande d'ajout en ami de l'utilisateur 1 à l'utilisateur 2"
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:8080/friends/reply?receiver_id=2&sender_id=1&response=true",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8080/friends/reply?receiver_id=2&sender_id=1&response=true",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"friends",
+						"reply"
+					],
+					"query": [
+						{
+							"key": "receiver_id",
+							"value": "2"
+						},
+						{
+							"key": "sender_id",
+							"value": "1"
+						},
+						{
+							"key": "response",
+							"value": "true"
+						}
+					]
+				},
+				"description": "Réponse positive de 2 à l'invitation de l'utilisateur 1 => 1 et 2 deviennent amis"
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:8080/friends/1/2",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8080/friends/1/2",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"friends",
+						"1",
+						"2"
+					]
+				},
+				"description": "L'utilisateur 1 supprime 2 de ses amis, l'inverse est également fait"
+			},
+			"response": []
+		}
+	]
+}
