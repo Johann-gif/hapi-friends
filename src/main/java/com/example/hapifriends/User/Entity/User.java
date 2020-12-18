@@ -1,4 +1,4 @@
-package com.example.hapifriends.User;
+package com.example.hapifriends.User.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;

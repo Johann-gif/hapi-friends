@@ -1,7 +1,7 @@
 package com.example.hapifriends.Friend.Controller;
 
-import com.example.hapifriends.User.User;
-import com.example.hapifriends.User.UserRepository;
+import com.example.hapifriends.User.Entity.User;
+import com.example.hapifriends.User.Repository.UserRepository;
 import org.apache.velocity.exception.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

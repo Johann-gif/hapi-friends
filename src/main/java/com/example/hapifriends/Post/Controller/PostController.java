@@ -1,7 +1,8 @@
-package com.example.hapifriends.Post;
+package com.example.hapifriends.Post.Controller;
 
-import com.example.hapifriends.User.User;
-import com.example.hapifriends.User.UserRepository;
+import com.example.hapifriends.Post.Entity.Post;
+import com.example.hapifriends.Post.Repository.PostRepository;
+import com.example.hapifriends.User.Repository.UserRepository;
 import org.apache.velocity.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -9,8 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
 
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @RestController
 @RequestMapping(path = "/posts")
