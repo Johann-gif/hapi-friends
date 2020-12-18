@@ -1,6 +1,6 @@
-package com.example.hapifriends.Post;
+package com.example.hapifriends.Post.Entity;
 
-import com.example.hapifriends.User.User;
+import com.example.hapifriends.User.Entity.User;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sun.istack.NotNull;
 import lombok.Data;

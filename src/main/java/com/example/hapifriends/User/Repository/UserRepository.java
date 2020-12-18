@@ -1,5 +1,6 @@
-package com.example.hapifriends.User;
+package com.example.hapifriends.User.Repository;
 
+import com.example.hapifriends.User.Entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

@@ -1,6 +1,7 @@
-package com.example.hapifriends.Post;
+package com.example.hapifriends.Post.Repository;
 
 
+import com.example.hapifriends.Post.Entity.Post;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
